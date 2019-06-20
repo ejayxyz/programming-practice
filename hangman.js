@@ -1,8 +1,9 @@
-let dictionary = ['cica', 'kiscica', 'nagycica', 'közepescica', 'kicsitkicsicica', 'kicsitnagycica', 'macska'];
-let word = '';
+let dictionary = ['cica']; // 'kiscica', 'nagycica', 'közepescica', 'kicsitkicsicica', 'kicsitnagycica', 'macska'];
+let word = [];
 let guessedWord = [];
 let life = 10;
 let index = 0;
+var readline = require('readline-sync');
 
 const generateWord = (word, arr) => {
   index = Math.floor(Math.random() * arr.length);
@@ -11,6 +12,7 @@ const generateWord = (word, arr) => {
     guessedWord.push('_');
   }
   life = Math.floor(word.length / 2);
+
   return word;
 };
 
@@ -24,10 +26,9 @@ const isSolved = (arr) => {
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] === '_') {
       return false;
-    } else {
-      return true;
     }
   }
+  return true;
 };
 
 const makeGuess = (a) => {
@@ -36,28 +37,41 @@ const makeGuess = (a) => {
     if (word[i] === a) {
       guessedWord[i] = a;
       boolean = true;
-
-      // console.log(boolean);
     }
   }
 
   printGame(guessedWord, life);
+
   console.log(boolean);
 };
 
 const main = (key) => {
-  let readline = require('readline-sync');
   word = generateWord(word, dictionary);
   printGame(guessedWord, life);
-  isSolved(guessedWord);
-  makeGuess(key);
+
+  while (life > 0) {
+    if (!makeGuess(readline.keyIn())) {
+      life--;
+    }
+
+    if (key === 'q') {
+      break;
+    }
+  }
+  if (life === 0) {
+    console.log('Sajnos vesztettél');
+  }
 };
 
-let a = 'c';
-// word = generateWord(word, dictionary);
-// printGame(guessedWord, life);
-// isSolved(guessedWord);
-// makeGuess(a);
-// console.log(word);
+/* let a = 'c';
+word = generateWord(word, dictionary);
+printGame(guessedWord, life);
+isSolved(guessedWord);
+makeGuess(a);
+console.log(word); */
+console.log('Üdvözöllek az akasztófa játékban, kérlek a billentyűk lenyomásával próbáld meg kitalálni a szót. Ha elfogy az életed, a kiscicák fognak veled végezni.');
+console.log('Ha ki szeretnél lépni a játékból, kérlek nyomd meg a q gombot.');
 
-main(a);
+main();
+console.log(word[0]);
+console.log(guessedWord[0]);
