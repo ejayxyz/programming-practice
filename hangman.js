@@ -2,59 +2,55 @@ let dictionary = ['cica']; // 'kiscica', 'nagycica', 'közepescica', 'kicsitkics
 let word = [];
 let guessedWord = [];
 let life = 10;
-let index = 0;
+
 var readline = require('readline-sync');
 
-const generateWord = (word, arr) => {
-  index = Math.floor(Math.random() * arr.length);
-  word = arr[index];
+const generateWord = () => {
+  word = dictionary[Math.floor(Math.random() * dictionary.length)];
   for (let i = 0; i < word.length; i++) {
     guessedWord.push('_');
   }
   life = Math.floor(word.length / 2);
-
-  return word;
 };
 
-const printGame = (arr, life) => {
-  let string = arr.join(' ');
-  console.log(string);
-  console.log(life);
+const printGame = () => {
+  for (let i = 0; i < guessedWord.length; i++) {
+    process.stdout.write(guessedWord[i] + ' ');
+  }
+  console.log('\nLife points', life);
 };
 
-const isSolved = (arr) => {
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] === '_') {
-      return false;
-    }
+const isSolved = () => {
+  for (let i = 0; i < guessedWord.length; i++) {
+    if (guessedWord[i] === '_') return false;
   }
   return true;
 };
 
 const makeGuess = (a) => {
-  let boolean = false;
+  let found = false;
   for (let i = 0; i < word.length; i++) {
-    if (word[i] === a) {
-      guessedWord[i] = a;
-      boolean = true;
+    if (word.charAt(i) === a) {
+      guessedWord[i] = word.charAt(i);
+      found = true;
     }
   }
 
-  printGame(guessedWord, life);
-
-  console.log(boolean);
+  return found;
 };
 
-const main = (key) => {
-  word = generateWord(word, dictionary);
-  printGame(guessedWord, life);
+const main = () => {
+  generateWord();
+  console.log('Üdvözöllek az akasztófa játékban, kérlek a billentyűk lenyomásával próbáld meg kitalálni a szót. Ha elfogy az életed, a kiscicák fognak veled végezni.');
 
+  printGame();
   while (life > 0) {
     if (!makeGuess(readline.keyIn())) {
       life--;
     }
-
-    if (key === 'q') {
+    printGame();
+    if (isSolved()) {
+      console.log('nyertél');
       break;
     }
   }
@@ -69,9 +65,5 @@ printGame(guessedWord, life);
 isSolved(guessedWord);
 makeGuess(a);
 console.log(word); */
-console.log('Üdvözöllek az akasztófa játékban, kérlek a billentyűk lenyomásával próbáld meg kitalálni a szót. Ha elfogy az életed, a kiscicák fognak veled végezni.');
-console.log('Ha ki szeretnél lépni a játékból, kérlek nyomd meg a q gombot.');
 
 main();
-console.log(word[0]);
-console.log(guessedWord[0]);
