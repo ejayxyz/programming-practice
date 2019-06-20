@@ -42,7 +42,7 @@ const stepSum = (arr) => {
   }
 };
 
-const permutations = (arr) => {
+/* const permutations = (arr) => {
   console.log(arr);
   // if ()
   for (let i = 0; i < arr.length; i++) {
@@ -58,7 +58,7 @@ const permutations = (arr) => {
   }
 
   return arr;
-};
+}; */
 
 /* let arr1 = [10, 3, 2, 1];
 console.log(arr1);
@@ -69,5 +69,5 @@ console.log(smallestDifference(arr1, arr2));
 
 let array = [1, 2, 3];
 // console.log(permutations(array));
-// stepSum(array);
-console.log(permutations(array));
+stepSum(array);
+// console.log(permutations(array));
