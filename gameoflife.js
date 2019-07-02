@@ -26,17 +26,27 @@ const print2d = () => {
 const addCell = (arr, str) => {
   let split = [];
   split = str.split(' ');
-  let x = split[0];
-  let y = split[1];
-  for (let i = 0; i < array.length; i++) {
-    if (x === i) {
+  let x = split[1];
+  let y = split[0];
 
+  for (let i = 0; i < array.length; i++) {
+    for (let j = 0; j < array[i].length; j++) {
+      if (Number(y) === i && Number(x) === j) {
+        array[i][j] = 1;
+      }
     }
   }
   return [x, y];
 };
-let str = '3 5';
+
+const getNeighbors = (arr, x, y) => {
+
+};
+
+let str = '1 2';
 let array = generate2d(5, 5);
 fill2d();
-print2d(array);
+
 addCell(array, str);
+print2d(array);
+let coordinates = addCell(array, str);
