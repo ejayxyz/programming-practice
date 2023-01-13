@@ -20,6 +20,6 @@
     "axel": "0.0.3",
     "readline-sync": "^1.4.9",
     "table": "^5.4.1",
-    "terminal-kit": "^1.28.1"
+    "terminal-kit": "^2.1.8"
   }
 }
